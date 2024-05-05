@@ -1,0 +1,9 @@
+query AllItems {
+    allItems {
+        uuid
+        works
+        author
+        url
+        other
+    }
+}
