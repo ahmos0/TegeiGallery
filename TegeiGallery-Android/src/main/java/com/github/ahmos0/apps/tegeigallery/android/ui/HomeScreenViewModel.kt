@@ -19,11 +19,10 @@ class HomeScreenViewModel(
         fetchGalleryItems()
     }
 
-    private fun fetchGalleryItems() {
+    fun fetchGalleryItems() {
         viewModelScope.launch {
             repository.fetchGalleryItems()
             repository.worksFlow.collectLatest { works ->
-                //_urlList.value = works.map { it.url }
                 _workList.value = works
             }
         }

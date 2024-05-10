@@ -3,11 +3,9 @@ package com.github.ahmos0.apps.tegeigallery.infra
 import AllItemsQuery
 import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.ApolloExperimental
-import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.network.http.ApolloHttpNetworkTransport
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 
@@ -37,6 +35,21 @@ class ApolloClientRepository {
             }
             emit(workModels)
         }
+    }
+
+    suspend fun getWorkByUuid(uuid: String): WorkModel? {
+        val responseData = apolloClient.query(AllItemsQuery()).execute()
+        var workModel: WorkModel? = null
+        responseData.collect() { response ->
+            response.data?.allItems?.map { item ->
+                item?.let {
+                    if (item.uuid == uuid) {
+                        workModel = WorkConverter.convertToWork(item)
+                    }
+                }
+            }
+        }
+        return workModel
     }
 }
 
