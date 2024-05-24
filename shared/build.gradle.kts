@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     id("com.apollographql.apollo").version("2.5.9")
+    id("co.touchlab.skie") version "0.6.4"
 }
 
 kotlin {
@@ -28,10 +29,10 @@ kotlin {
         commonMain.dependencies {
             //put your multiplatform dependencies here
             implementation("com.apollographql.apollo:apollo-runtime-kotlin:2.5.9")
-            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-            implementation("io.ktor:ktor-client-core:$ktorVersion")
-            implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-            implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0")
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+            implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+            implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
